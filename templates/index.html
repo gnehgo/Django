@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends "base.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block contend %}
+ <div class="card-group">
+{% for pos in player_list %}
+    <div class="card border-dark " style="border-radius: 0;">
+                {% with name=pos.id|stringformat:"i" %}
+                <img class="card-img-top" style="max-height: 300px" src={% static  "img"|add:name|add:".png" %} alt="...">
+                {% endwith %}
+                    <div class="card-body">
+                    <h5 class="card-title">Name:{{ pos.name }}</h5>
+                        {% if user.is_authenticated %}
+                     <p class="card-text">Number:{{ pos.jersey }}</p>
+                    <p class="card-text">Nationality:{{ pos.nationality }}</p>
+                    <a href="#" class="btn btn-outline-dark">Team:{{ pos.team }}</a>
+                            {% else %}
+                            <li>Необходимо войти для появления статистики</li>
+                    <a href="/accounts/login" class="btn btn-outline-dark">Войти</a>
+                        {% endif %}
+                    </div>
+              </div>
+        {% if forloop.counter|divisibleby:4 %}
+            </div>
+            <div class="card-group">
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock %}
+</body>
+</html>
+

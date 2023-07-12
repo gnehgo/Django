@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends "base.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block contend %}
+ <div class="card-group">
+{% for num in game_list %}
+    <div class="card border-dark " style="border-radius: 0;">
+                <img class="card-img-top"style="max-height: 300px" src={% static  "gameslogo.png" %} alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">Date:{{ num.data }}</h5>
+                    <p class="card-text">Team 1:{{ num.team1 }}</p>
+                    <p class="card-text">Team 2:{{ num.team2 }}</p>
+                        {% if user.is_authenticated %}
+                    <p class="card-text">Score:{{ num.score }}</p>
+                            {% else %}
+                            <p class="card-text">Для просмотра счета,войдите</p>
+                    <a href="/accounts/login" class="btn btn-outline-dark">Войти</a>
+                        {% endif %}
+                    </div>
+              </div>
+        {% if forloop.counter|divisibleby:4 %}
+            </div>
+            <div class="card-group">
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock %}
+</body>
+</html>
+

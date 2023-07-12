@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+    <meta charset="UTF-8">
+</head>
+<body>
+{% block contend %}
+    <form method="post"  style="position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%);">
+    <h3 style="position: center; transform: translate(0, -50%);">{{user.username}}</h3>
+        <h4>{{ user.email }}</h4>
+            {% csrf_token %}
+            {{ form|crispy }}
+            {% comment %}{% for f in form %}
+                <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+                <div class="form-error">{{ f.errors }}</div>
+            {% endfor %}{% endcomment %}
+        <button type="submit" class="btn btn-danger" style="position: fixed; left: 25%; margin-top: 3%; ">Сменить пароль</button>
+    </form>
+{% endblock %}
+</body>
+</html>

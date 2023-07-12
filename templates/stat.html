@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends "base.html" %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block contend %}
+ <div class="card-group">
+{% for el in stat_list %}
+    <div class="card border-dark " style="border-radius: 0;">
+                {% with name=el.number.id|stringformat:"i" %}
+                <img class="card-img-top"style="max-height: 300px" src={% static  "img"|add:name|add:".png" %} alt="...">
+                {% endwith %}
+                    <div class="card-body">
+                    <h5 class="card-title">Name:{{ el.number.name }}</h5>
+                        {% if user.is_authenticated %}
+                    <p class="card-text">Number:{{ el.number.jersey }}</p>
+                    <p class="card-text">Wins:{{ el.wins }}</p>
+                    <p class="card-text">Points:{{ el.points }}</p>
+                    <p class="card-text">Rebounds:{{ el.rebounds }}</p>
+                    <p class="card-text">Assists:{{ el.assists }}</p>
+                            {% else  %}
+                    <p class="card-text">Для появления статистики необходимо войти</p>
+                    <a href="/accounts/login" class="btn btn-outline-dark">Войти</a>
+                        {% endif %}
+                    </div>
+              </div>
+        {% if forloop.counter|divisibleby:4 %}
+            </div>
+            <div class="card-group">
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock %}
+</body>
+</html>
+
